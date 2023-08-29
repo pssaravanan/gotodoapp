@@ -3,6 +3,8 @@ package main
 import (
 	"io"
 	"net/http"
+	"github.com/gin-gonic/gin"
+	"github.com/pssaravanan/gotodoapp/routers"
 )
 
 func elbCheck(w http.ResponseWriter, r *http.Request) {
@@ -10,6 +12,7 @@ func elbCheck(w http.ResponseWriter, r *http.Request) {
 }
 
 func main(){
-	http.HandleFunc("/ping", elbCheck)
-	http.ListenAndServe(":3000", nil)
+	r := gin.Default()
+	r.GET("/todos", routers.GetAllTodo)
+	r.Run("localhost:8080")
 }
